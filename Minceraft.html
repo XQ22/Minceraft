@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Minceraft</title>
+<style>
+body {
+  background-color: #252636;
+  color: #acaeb2;
+}
+  
+h1, h2 {
+  font-family: Arial, Helvetica Neue, monospace;
+}
+
+h1 {
+  font-size: 70px;
+}
+p {
+  font-family: Helvetica, Arial, monospace;
+}
+  
+table {
+  border: 0px;
+}
+
+button {
+  border: none;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+button:hover {
+  color: #ccced2;
+}
+ 
+</style>
+<script>
+var pos = [0,0];
+var map = [[0,0]];
+var map2 = [[0,0,0]];
+var current = 0;
+var lost = false;
+var won = false;
+var descs = ["You find yourself continue to be adrift in the empty sea on your mince-based vessel.","You encounter a dangerous cephalopod. Fortunately, it ignores you","You've found land! Hooray!<br><button onclick=\"win()\">Explore the land</button>","You find a traveller who isn't in a meaty vessel. He also has an oar. What a show-off.","Your mince-based raft disintegrates, leaving meat and string in its wake.<br><button onclick=\"reset()\">Travel back in time and try again</button>","You leave your meaty vessel and travel to the nearby town, telling the inhabitants your cautionary tale.<br><button onclick=\"reset()\">Be a fool and brave the seas with a new mince-raft</button>"];
+function Random(a){
+	return Math.floor(Math.random() * a);
+};
+function Search(a,b){
+	for(var i=0;i<a.length;i++){
+		if(a[i]===b){
+			return true;
+		}
+	}
+	return false;
+};
+function Search2(a,b){
+	for(var i=0;i<a.length;i++){
+		if(a[i]===b){
+			return i;
+		}
+	}
+};
+function keyh(event){
+	if(!lost&&!won){
+		var x = event.which || event.keyCode;
+		switch(x){
+			case 119 || 38: //w-up
+				pos[1]--;
+			break;
+			case 97 || 37: //a-left
+				pos[0]--;
+			break;
+			case 115 || 40: //s-down
+				pos[1]++;
+			break;
+			case 100 || 39: //d-right
+				pos[0]++;
+			break;
+		}
+		if(!Search(map,pos)){
+			map.push([pos[0],pos[1]]);
+			current = Random(5);
+			map2.push([pos[0],pos[1],current]);
+		} else {
+			current = map2[Search2(map,pos)][2];
+		}
+		document.getElementById("img").src = "MR"+current+".png";
+		document.getElementById("desc").innerHTML = descs[current];
+		if(current===4){
+			lost = true;
+		}
+	}
+};
+function reset(){
+	pos = [0,0];
+	map = [[0,0]];
+	map2 = [[0,0,0]];
+	lost = false;
+	won = false;
+	current = 0;
+	document.getElementById("img").src = "MR"+current+".png";
+	document.getElementById("desc").innerHTML = descs[current];
+};
+function win(){
+	current = 5;
+	won = true;
+	document.getElementById("img").src = "MR"+current+".png";
+	document.getElementById("desc").innerHTML = descs[current];
+};
+</script>
+</head>
+<body id="body" onkeypress="keyh(event)">
+<img id="img" src="MR0.png" />
+<p id="desc" >You find yourself in the sea, adrift on a piece of mince held together by string. What could possibly go wrong?</p>
+</body>
+<!-- Minceraft is a game by XQ22 that came about as a joke because of the misspelling of the more popular game Minecraft. -->
+</html>
