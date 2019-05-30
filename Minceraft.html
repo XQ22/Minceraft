@@ -64,16 +64,16 @@ function keyh(event){
 	if(!lost&&!won){
 		var x = event.which || event.keyCode;
 		switch(x){
-			case 119 || 38: //w-up
+			case 119: //w-up
 				pos[1]--;
 			break;
-			case 97 || 37: //a-left
+			case 97: //a-left
 				pos[0]--;
 			break;
-			case 115 || 40: //s-down
+			case 115: //s-down
 				pos[1]++;
 			break;
-			case 100 || 39: //d-right
+			case 100: //d-right
 				pos[0]++;
 			break;
 		}
@@ -114,7 +114,7 @@ function win(){
 <p id="desc" >You find yourself in the sea, adrift on a piece of mince held together by string. What could possibly go wrong?</p>
 <hr>
 <h3>Instructions:</h3>
-<p>Use WASD or arrow keys to brave the seas on your meaty raft.</p>
+<p>Use WASD to brave the seas on your meaty raft.</p>
 </body>
 <!-- Minceraft is a game by XQ22 that came about as a joke because of the misspelling of the more popular game Minecraft. -->
 </html>
